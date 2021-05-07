@@ -1,3 +1,6 @@
+import torch
+import torch.nn as nn
+
 class GroupedLinear(nn.Module):
     def __init__(self, dim_in, dim_out, n_groups=2):
         super(GroupedLinear, self).__init__()
