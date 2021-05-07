@@ -1,3 +1,8 @@
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from GroupedLinear import GroupedLinear
+
 class WeavedMLP(nn.Module):
     def __init__(self, dim_in, dim_out,hidden_dims, n_groups=2, dropout=0.):
         super(GroupedMLP, self).__init__()
