@@ -4,19 +4,24 @@ import torch.nn.functional as F
 from GroupedLinear import GroupedLinear
 
 class WeavedMLP(nn.Module):
-    def __init__(self, dim_in, dim_out,hidden_dims, n_groups=2, dropout=0.):
+    def __init__(self, dim_in, dim_out, hidden_dims, n_groups=2, dropout=0.):
         super(WeavedMLP, self).__init__()
         self.depth = len(hidden_dims)-1
         self.n_groups = n_groups
 
         self.layers = nn.ModuleList([])
+        self.layers.append(
+            GroupedLinear(dim_in, 
+            hidden_dims[0], 
+            n_groups=n_groups)
+            )
         for i in range(self.depth):
             self.layers.append(
                 GroupedLinear(hidden_dims[i], 
                               hidden_dims[i+1], 
                               n_groups=n_groups)
                 )
-        self.outlayer = nn.Linear(hidden_dims[-2], hidden_dims[-1])
+        self.outlayer = nn.Linear(hidden_dims[-1], dim_out)
         self.activation = nn.ReLU()
         self.dropout = nn.Dropout(dropout)
         
