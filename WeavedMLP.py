@@ -5,7 +5,7 @@ from GroupedLinear import GroupedLinear
 
 class WeavedMLP(nn.Module):
     def __init__(self, dim_in, dim_out,hidden_dims, n_groups=2, dropout=0.):
-        super(GroupedMLP, self).__init__()
+        super(WeavedMLP, self).__init__()
         self.depth = len(hidden_dims)-1
         self.n_groups = n_groups
 
